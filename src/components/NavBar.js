@@ -7,55 +7,48 @@ class NavBar extends Component {
         linkRef: "/",
         display: "Home",
         active: true,
-        current: false,
         id: 0,
         enabled: true,
-        disableLink: false,
       },
       {
         linkRef: "/newQuestion",
         display: "New Question",
         active: true,
-        current: false,
         id: 1,
         enabled: true,
-        disableLink: false,
       },
       {
         linkRef: "/leaderBoard",
         display: "Leader Board",
         active: true,
-        current: false,
         id: 2,
         enabled: true,
-        disableLink: false,
       },
       {
         linkRef: "/logout",
         display: "Logout",
         active: true,
-        current: false,
         id: 3,
         enabled: true,
-        disableLink: false,
+      },
+      {
+        linkRef: "/login",
+        display: "Login",
+        active: true,
+        id: 4,
+        enabled: true,
       },
     ],
   };
 
   generateNavMenu = () => {
     let result = this.state.navItems.map((navItems) => {
-      const {
-        linkRef,
-        display,
-        active,
-        current,
-        id,
-        enabled,
-        disableLink,
-      } = navItems;
-      const listClassName = active ? "nav-item active" : "nav-item";
-      const linkDisabled = disableLink ? "nav-link disabled" : "nav-link";
-      const currentName = current ? "(current)" : "";
+      const { linkRef, display, active, id, enabled } = navItems;
+      const listClassName =
+        window.location.pathname !== linkRef ? "nav-item active" : "nav-item";
+      const linkDisabled =
+        window.location.pathname === linkRef ? "nav-link disabled" : "nav-link";
+
       return (
         <li key={id} className={listClassName}>
           <a
@@ -65,7 +58,6 @@ class NavBar extends Component {
             aria-disabled={enabled}
           >
             {display}
-            <span className="sr-only">{currentName}</span>
           </a>
         </li>
       );
