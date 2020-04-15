@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import NavBar from "./NavBar";
 
 class Logout extends Component {
   state = {};
   render() {
     return (
       <React.Fragment>
+        <NavBar />
         <main role="main" className="container">
           <div className="starter-template">
             <h1>Logout template</h1>

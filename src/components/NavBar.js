@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class NavBar extends Component {
   state = {
@@ -6,36 +7,25 @@ class NavBar extends Component {
       {
         linkRef: "/",
         display: "Home",
-        active: true,
         id: 0,
         enabled: true,
       },
       {
         linkRef: "/newQuestion",
         display: "New Question",
-        active: true,
         id: 1,
         enabled: true,
       },
       {
         linkRef: "/leaderBoard",
         display: "Leader Board",
-        active: true,
         id: 2,
         enabled: true,
       },
       {
         linkRef: "/logout",
         display: "Logout",
-        active: true,
         id: 3,
-        enabled: true,
-      },
-      {
-        linkRef: "/login",
-        display: "Login",
-        active: true,
-        id: 4,
         enabled: true,
       },
     ],
@@ -43,7 +33,7 @@ class NavBar extends Component {
 
   generateNavMenu = () => {
     let result = this.state.navItems.map((navItems) => {
-      const { linkRef, display, active, id, enabled } = navItems;
+      const { linkRef, display, id, enabled } = navItems;
       const listClassName =
         window.location.pathname !== linkRef ? "nav-item active" : "nav-item";
       const linkDisabled =
@@ -51,14 +41,14 @@ class NavBar extends Component {
 
       return (
         <li key={id} className={listClassName}>
-          <a
+          <Link
             className={linkDisabled}
-            href={linkRef}
+            to={linkRef}
             tabIndex={id}
             aria-disabled={enabled}
           >
             {display}
-          </a>
+          </Link>
         </li>
       );
     });

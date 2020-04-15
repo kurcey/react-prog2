@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import NavBar from "./NavBar";
 
 class Home extends Component {
   state = {};
   render() {
     return (
       <React.Fragment>
+        <NavBar />
+
         <div className="container">
           <div className="homeBoard">
             <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
