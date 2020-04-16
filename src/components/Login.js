@@ -88,7 +88,7 @@ class Login extends Component {
     this.props.setCurrentUser(currentUser);
 
     if (currentUser) {
-      this.props.history.push("/");
+      this.props.history.push("/aboutUser");
     }
   };
 

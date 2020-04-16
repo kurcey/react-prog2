@@ -4,6 +4,7 @@ import {
   ADD_ALL_USERS,
   ADD_VOTE,
   SET_CURRENT_USER,
+  LOGOUT_CURRENT_USER,
 } from "./actionTypes";
 
 export const addQuestion = (id, author, timestamp, optionOne, optionTwo) => ({
@@ -44,6 +45,13 @@ export const setCurrentUser = (currentUser) => {
     payload: {
       currentUser,
     },
+  };
+};
+
+export const logOutCurrentUser = () => {
+  return {
+    type: LOGOUT_CURRENT_USER,
+    payload: {},
   };
 };
 

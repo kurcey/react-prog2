@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from "../actionTypes";
+import { SET_CURRENT_USER, LOGOUT_CURRENT_USER } from "../actionTypes";
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -7,6 +7,11 @@ export default function (state = {}, action) {
         ...action.payload.currentUser,
       };
     }
+
+    case LOGOUT_CURRENT_USER: {
+      return {};
+    }
+
     default:
       return state;
   }

@@ -8,6 +8,7 @@ import "./App.css";
 
 import { PrivateRoute } from "./components/PrivateRoute";
 import Home from "./components/Home";
+import AboutUser from "./components/AboutUser";
 import LeaderBoard from "./components/LeaderBoard";
 import NewQuestion from "./components/NewQuestion";
 import Logout from "./components/Logout";
@@ -35,25 +36,36 @@ class App extends Component {
             <PrivateRoute
               exact
               path="/"
+              history={this.props.history}
               component={Home}
               isAuthenticated={this.loggedIn()}
             />
 
             <PrivateRoute
               path="/logout"
+              history={this.props.history}
               component={Logout}
               isAuthenticated={this.loggedIn()}
             />
 
             <PrivateRoute
               path="/leaderBoard"
+              history={this.props.history}
               component={LeaderBoard}
               isAuthenticated={this.loggedIn()}
             />
 
             <PrivateRoute
               path="/newQuestion"
+              history={this.props.history}
               component={NewQuestion}
+              isAuthenticated={this.loggedIn()}
+            />
+
+            <PrivateRoute
+              path="/aboutUser"
+              history={this.props.history}
+              component={AboutUser}
               isAuthenticated={this.loggedIn()}
             />
 

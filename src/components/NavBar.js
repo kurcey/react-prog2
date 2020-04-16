@@ -42,7 +42,7 @@ class NavBar extends Component {
 
       if (
         Object.keys(this.props.currentUser).length === 0 &&
-        display == "Logout"
+        display === "Logout"
       ) {
         linkDisabled = "nav-link disabled";
         listClassName = "nav-item";
@@ -66,7 +66,6 @@ class NavBar extends Component {
 
   generateWelcome = () => {
     const { name } = this.props.currentUser;
-    console.log(name);
     if (Object.keys(this.props.currentUser).length > 0)
       return <p>Welcome {name}</p>;
   };
