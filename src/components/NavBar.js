@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class NavBar extends Component {
   state = {
@@ -34,10 +35,18 @@ class NavBar extends Component {
   generateNavMenu = () => {
     let result = this.state.navItems.map((navItems) => {
       const { linkRef, display, id, enabled } = navItems;
-      const listClassName =
+      let listClassName =
         window.location.pathname !== linkRef ? "nav-item active" : "nav-item";
-      const linkDisabled =
+      let linkDisabled =
         window.location.pathname === linkRef ? "nav-link disabled" : "nav-link";
+
+      if (
+        Object.keys(this.props.currentUser).length === 0 &&
+        display == "Logout"
+      ) {
+        linkDisabled = "nav-link disabled";
+        listClassName = "nav-item";
+      }
 
       return (
         <li key={id} className={listClassName}>
@@ -55,18 +64,45 @@ class NavBar extends Component {
     return result;
   };
 
+  generateWelcome = () => {
+    const { name } = this.props.currentUser;
+    console.log(name);
+    if (Object.keys(this.props.currentUser).length > 0)
+      return <p>Welcome {name}</p>;
+  };
+
+  generateLogout = () => {
+    const { name } = this.props.currentUser;
+    console.log(name);
+    if (Object.keys(this.props.currentUser).length > 0)
+      return <p>Welcome {name}</p>;
+  };
+
   render() {
     return (
       <React.Fragment>
         <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
           <div className="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul className="navbar-nav mr-auto">{this.generateNavMenu()}</ul>
-            <span className="nav-link.active">hello</span>
+            <span className="nav-link.active App-link">
+              {this.generateWelcome()}
+            </span>
           </div>
         </nav>
       </React.Fragment>
     );
   }
+  componentDidUpdate() {
+    this.loggedIn();
+  }
 }
 
-export default NavBar;
+const mapStateToProps = ({ currentUser }) => {
+  return {
+    currentUser: currentUser,
+  };
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

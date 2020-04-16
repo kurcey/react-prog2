@@ -1,24 +1,37 @@
 import React, { Component } from "react";
 
+import { withRouter } from "react-router";
+
 import { connect } from "react-redux";
-//import { addQuestion } from "../redux/actions";
+import { setCurrentUser } from "../redux/actions";
 
 import NavBar from "./NavBar";
-import { $CombinedState } from "redux";
 
 class Login extends Component {
   state = {};
 
-  getUsers = () => {
+  setSelectUserOptions = () => {
     let select = document.getElementById("sel1");
-
+    select.innerHTML = "<option></option>";
     const { users } = this.props;
-    return Object.keys(users).map(function (key, index) {
+    Object.keys(users).map(function (key, index) {
       var opt = document.createElement("option");
-      opt.value = users[key].name;
+      opt.value = users[key].id;
       opt.innerHTML = users[key].name;
       select.appendChild(opt);
+      return null;
     });
+  };
+
+  getUserInformation = (userId) => {
+    const { users } = this.props;
+    const result = Object.keys(users)
+      .map(function (key, index) {
+        if (users[key].id === userId) return users[key];
+        else return null;
+      })
+      .filter((items) => items != null)[0];
+    return result;
   };
 
   render() {
@@ -31,6 +44,7 @@ class Login extends Component {
             <form className="form-signin">
               <img
                 className="mb-4"
+                id="avatar"
                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
                 alt=""
                 width="300"
@@ -38,14 +52,20 @@ class Login extends Component {
               />
               <h1 className="h3 mb-3 font-weight-normal">Please Select User</h1>
 
-              <select className="form-control" id="sel1">
+              <select
+                className="form-control"
+                id="sel1"
+                value={this.state.input}
+                onChange={(e) => this.handleChangeAvatar(e.target.value)}
+              >
                 <option></option>
               </select>
 
               <br />
               <button
                 className="btn btn-lg btn-primary btn-block"
-                type="submit"
+                type="button"
+                onClick={this.handleChangeUser}
               >
                 Sign in
               </button>
@@ -56,36 +76,40 @@ class Login extends Component {
     );
   }
 
-  updateInput = (value) => {
-    this.setState({ input: value });
+  handleChangeAvatar = (userId) => {
+    const currentSelected = this.getUserInformation(userId);
+    let avatar = document.getElementById("avatar");
+    avatar.src = currentSelected.avatarURL;
+    this.setState({ input: userId });
   };
 
-  handleAddTodo = () => {
-    // dispatches actions to add todo
-    //this.props.addQuestion(this.state.input);
-    // console.log(this.props);
-    // sets state back to empty string
-    //this.setState({ input: "" });
+  handleChangeUser = () => {
+    const currentUser = this.getUserInformation(this.state.input);
+    this.props.setCurrentUser(currentUser);
+
+    if (currentUser) {
+      this.props.history.push("/");
+    }
   };
 
   componentDidUpdate() {
-    this.getUsers();
+    this.setSelectUserOptions();
   }
 
   componentDidMount() {
-    this.getUsers();
+    this.setSelectUserOptions();
   }
 }
 
-const mapStateToProps = ({ users }) => {
-  //console.log(users);
+const mapStateToProps = ({ users, currentUser }) => {
   return {
     users: users,
+    currentUser: currentUser,
   };
 };
 
 const mapDispatchToProps = {
-  //addQuestion,
+  setCurrentUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

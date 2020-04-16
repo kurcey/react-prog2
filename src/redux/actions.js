@@ -3,6 +3,7 @@ import {
   ADD_ALL_QUESTION,
   ADD_ALL_USERS,
   ADD_VOTE,
+  SET_CURRENT_USER,
 } from "./actionTypes";
 
 export const addQuestion = (id, author, timestamp, optionOne, optionTwo) => ({
@@ -33,6 +34,15 @@ export const addAllUsers = (users) => {
     type: ADD_ALL_USERS,
     payload: {
       result,
+    },
+  };
+};
+
+export const setCurrentUser = (currentUser) => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: {
+      currentUser,
     },
   };
 };

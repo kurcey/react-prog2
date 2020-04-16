@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { addQuestion } from "./redux/actions";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -15,14 +14,11 @@ import Logout from "./components/Logout";
 import Login from "./components/Login";
 
 class App extends Component {
-  state = {
-    fakeAuth: {
-      isAuthenticated: false,
-      authenticate(cb) {
-        this.isAuthenticated = true;
-        setTimeout(cb, 100);
-      },
-    },
+  state = {};
+
+  loggedIn = () => {
+    if (Object.keys(this.props.currentUser).length > 0) return true;
+    else return false;
   };
 
   render() {
@@ -30,69 +26,55 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <Switch>
-            <Route path="/login" render={() => <Login />} />
+            <Route
+              path="/login"
+              history={this.props.history}
+              render={() => <Login />}
+            />
 
             <PrivateRoute
               exact
               path="/"
               component={Home}
-              isAuthenticated={this.state.fakeAuth.isAuthenticated}
+              isAuthenticated={this.loggedIn()}
             />
 
             <PrivateRoute
               path="/logout"
               component={Logout}
-              isAuthenticated={this.state.fakeAuth.isAuthenticated}
+              isAuthenticated={this.loggedIn()}
             />
 
             <PrivateRoute
               path="/leaderBoard"
               component={LeaderBoard}
-              isAuthenticated={this.state.fakeAuth.isAuthenticated}
+              isAuthenticated={this.loggedIn()}
             />
 
             <PrivateRoute
               path="/newQuestion"
               component={NewQuestion}
-              isAuthenticated={this.state.fakeAuth.isAuthenticated}
+              isAuthenticated={this.loggedIn()}
             />
-          </Switch>
 
-          <input
-            onChange={(e) => this.updateInput(e.target.value)}
-            // value={this.state.input}
-          />
-          <button className="add-todo" onClick={this.handleAddTodo}>
-            Add Todo
-          </button>
+            <Route path="*" component={Home} />
+          </Switch>
         </React.Fragment>
       </BrowserRouter>
     );
   }
 
-  updateInput = (value) => {
-    this.setState({ input: value });
-  };
-
-  handleAddTodo = () => {
-    // dispatches actions to add todo
-    this.props.addQuestion(this.state.input);
-
-    //console.log(this.props);
-
-    // sets state back to empty string
-    //this.setState({ input: "" });
-  };
+  componentDidUpdate() {
+    this.loggedIn();
+  }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ currentUser }) => {
   return {
-    questions: state.questions,
+    currentUser: currentUser,
   };
 };
 
-const mapDispatchToProps = {
-  addQuestion,
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
