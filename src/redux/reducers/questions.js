@@ -3,13 +3,11 @@ import { ADD_QUESTION, ADD_ALL_QUESTION } from "../actionTypes";
 export default function (state = {}, action) {
   switch (action.type) {
     case ADD_QUESTION: {
-      const { id, author, timestamp, optionOne, optionTwo } = action.payload;
+      const { author, optionOne, optionTwo } = action.payload;
       return {
         ...state,
-        [id]: {
-          id: id,
+        payload: {
           author: author,
-          timestamp: timestamp,
           optionOne: optionOne,
           optionTwo: optionTwo,
         },

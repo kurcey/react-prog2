@@ -117,8 +117,6 @@ class Home extends Component {
   }
 
   handleLogoutUser = () => {
-    //this.props.logOutCurrentUser();
-
     if (Object.keys(this.props.currentUser).length === 0) {
       this.props.history.push("/");
     }
@@ -126,7 +124,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = ({ questions, currentUser, users }) => {
-  //console.log(questions);
   return {
     questions: questions,
     currentUser: currentUser,
@@ -134,8 +131,6 @@ const mapStateToProps = ({ questions, currentUser, users }) => {
   };
 };
 
-const mapDispatchToProps = {
-  //logOutCurrentUser,
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));

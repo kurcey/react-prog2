@@ -21,7 +21,6 @@ function loadInitalUsers() {
   return function (dispatch) {
     return _getUsers().then(
       (user) => {
-        // console.log(user);
         store.dispatch(addAllUsers(user));
       },
       (error) => console.log(error)

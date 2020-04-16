@@ -3,10 +3,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
+import { _saveQuestion } from "../redux/_DATA";
+
+import { addAllQuestion } from "../redux/actions";
+
+import store from "../redux/store";
+
 import NavBar from "./NavBar";
 
 class NewQuestion extends Component {
-  state = {};
+  state = { optionOneText: "", optionTwoText: "" };
+
   render() {
     return (
       <React.Fragment>
@@ -29,28 +36,34 @@ class NewQuestion extends Component {
                           Would you rather...
                         </h4>
                         <div className="form-group">
-                          <label htmlFor="optionOne">Option One</label>
+                          <label htmlFor="optionOneText">Option One</label>
                           <input
                             type="text"
                             className="form-control"
-                            id="optionOne"
+                            name="optionOneText"
+                            value={this.state.optionOneText}
+                            onChange={this.handleChange}
                           />
                         </div>
                         <small className="form-text text-muted">Or</small>
                         <br />
                         <div className="form-group">
-                          <label htmlFor="optionTwo">Option Two</label>
+                          <label htmlFor="optionTwoText">Option Two</label>
                           <input
                             type="text"
                             className="form-control"
-                            id="optionTwo"
+                            name="optionTwoText"
+                            value={this.state.optionTwoText}
+                            onChange={this.handleChange}
                           />
                         </div>
 
                         <button
                           type="button"
                           className="btn btn-lg btn-block btn-outline-primary"
-                          onClick={(e) => {}}
+                          onClick={(e) => {
+                            this.handleInputQuestion();
+                          }}
                         >
                           Submit
                         </button>
@@ -65,6 +78,47 @@ class NewQuestion extends Component {
       </React.Fragment>
     );
   }
+
+  saveQuestion = (questionObject) => {
+    return function (dispatch) {
+      return _saveQuestion(questionObject).then(
+        (ques) => {
+          console.log(ques);
+          //pickup from here
+          store.dispatch(addAllQuestion(ques));
+        },
+        (error) => console.log(error)
+      );
+    };
+  };
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleInputQuestion = () => {
+    const { currentUser } = this.props;
+    const author = currentUser.id;
+    const { optionOneText, optionTwoText } = this.state;
+
+    const questionPayload = {
+      author: author,
+      optionOneText: optionOneText,
+      optionTwoText: optionTwoText,
+    };
+
+    console.log(questionPayload);
+    store.dispatch(this.saveQuestion(questionPayload));
+
+    if (currentUser) {
+      // this.props.history.push("/");
+    }
+  };
 }
 
 const mapStateToProps = ({ currentUser }) => {
@@ -73,7 +127,10 @@ const mapStateToProps = ({ currentUser }) => {
   };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  addAllQuestion,
+  // saveQuestion,
+};
 
 export default connect(
   mapStateToProps,
