@@ -57,6 +57,7 @@ class LeaderBoard extends Component {
 
                     <div className="col-md-5">
                       <h4>{name}</h4>
+                      <br />
                       <p className="card-title pricing-card-title">
                         Answered Questions {"  "} {answeredQuestions}
                       </p>
@@ -68,9 +69,13 @@ class LeaderBoard extends Component {
                     <div className="col-md-4">
                       <div className="card mb-12 shadow-sm">
                         <div className="card-header">
-                          <h4 className="my-0 font-weight-small">Score</h4>
+                          <h5 className="my-0 font-weight-small">Score</h5>
                         </div>
+                        &nbsp;
+                        <br />
                         {total}
+                        <br />
+                        &nbsp;
                       </div>
                     </div>
                   </div>

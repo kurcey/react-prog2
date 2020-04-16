@@ -23,12 +23,6 @@ class NavBar extends Component {
         id: 2,
         enabled: true,
       },
-      {
-        linkRef: "/logout",
-        display: "Logout",
-        id: 3,
-        enabled: true,
-      },
     ],
   };
 
@@ -39,14 +33,6 @@ class NavBar extends Component {
         window.location.pathname !== linkRef ? "nav-item active" : "nav-item";
       let linkDisabled =
         window.location.pathname === linkRef ? "nav-link disabled" : "nav-link";
-
-      if (
-        Object.keys(this.props.currentUser).length === 0 &&
-        display === "Logout"
-      ) {
-        linkDisabled = "nav-link disabled";
-        listClassName = "nav-item";
-      }
 
       return (
         <li key={id} className={listClassName}>
@@ -65,9 +51,28 @@ class NavBar extends Component {
   };
 
   generateWelcome = () => {
-    const { name } = this.props.currentUser;
+    const { name, avatarURL } = this.props.currentUser;
     if (Object.keys(this.props.currentUser).length > 0)
-      return <p>Welcome {name}</p>;
+      return (
+        <React.Fragment>
+          <p>
+            <span style={{ paddingRight: 10 }}>Welcome {name} </span>
+            <img
+              className="currentUserImage"
+              src={avatarURL}
+              alt="Author avatar"
+            ></img>
+            <Link
+              className="nav-item active logOutBttn"
+              to="/logout"
+              tabIndex="3"
+              aria-disabled="true"
+            >
+              Logout
+            </Link>
+          </p>
+        </React.Fragment>
+      );
   };
 
   generateLogout = () => {

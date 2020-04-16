@@ -51,7 +51,9 @@ class AnswerQuestion extends Component {
 
                     <div className="col-md-8">
                       <h4 className="card-title pricing-card-title">
-                        <small className="text-muted">Would You Rather</small>
+                        <small className="text-muted">
+                          Would You Rather ...
+                        </small>
                       </h4>
 
                       <div className="custom-control custom-radio">

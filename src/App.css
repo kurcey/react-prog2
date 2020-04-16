@@ -75,6 +75,15 @@ body {
   margin: auto;
 }
 
+.currentUserImage {
+  width: 30px;
+}
+
+.logOutBttn {
+  padding-left: 30px;
+  color: #fff;
+}
+
 .btn-group.special {
   display: flex;
 }
