@@ -13,6 +13,8 @@ import LeaderBoard from "./components/LeaderBoard";
 import NewQuestion from "./components/NewQuestion";
 import Logout from "./components/Logout";
 import Login from "./components/Login";
+import AnswerQuestion from "./components/AnswerQuestion";
+import ViewPoll from "./components/ViewPoll";
 
 class App extends Component {
   state = {};
@@ -66,6 +68,20 @@ class App extends Component {
               path="/aboutUser"
               history={this.props.history}
               component={AboutUser}
+              isAuthenticated={this.loggedIn()}
+            />
+
+            <PrivateRoute
+              path="/answerQuestion/:id"
+              history={this.props.history}
+              component={AnswerQuestion}
+              isAuthenticated={this.loggedIn()}
+            />
+
+            <PrivateRoute
+              path="/viewPoll/:id"
+              history={this.props.history}
+              component={ViewPoll}
               isAuthenticated={this.loggedIn()}
             />
 
