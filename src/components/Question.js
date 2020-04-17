@@ -7,11 +7,11 @@ import { saveQuestionAnswer } from "../redux/actions";
 
 import NavBar from "./NavBar";
 
-class AnswerQuestion extends Component {
+class Question extends Component {
   state = { optionChecked: "optionOne" };
 
   generateResults = () => {
-    const { id: sentID } = this.props.match.params;
+    const { question_id: sentID } = this.props.match.params;
     const { questions: questionPool, users } = this.props;
 
     // filter to current question
@@ -122,7 +122,7 @@ class AnswerQuestion extends Component {
     const { currentUser } = this.props;
     const authedUser = currentUser.id;
     const { optionChecked } = this.state;
-    const { id: qid } = this.props.match.params;
+    const { question_id: qid } = this.props.match.params;
 
     const answerPayload = {
       authedUser: authedUser,
@@ -131,7 +131,7 @@ class AnswerQuestion extends Component {
     };
 
     this.props.saveQuestionAnswer(answerPayload);
-    this.props.history.push("/");
+    this.props.history.push("/viewPoll/" + qid);
   };
 }
 
@@ -150,4 +150,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(AnswerQuestion));
+)(withRouter(Question));

@@ -10,11 +10,12 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import Home from "./components/Home";
 import AboutUser from "./components/AboutUser";
 import LeaderBoard from "./components/LeaderBoard";
-import NewQuestion from "./components/NewQuestion";
+import Add from "./components/Add";
 import Logout from "./components/Logout";
 import Login from "./components/Login";
-import AnswerQuestion from "./components/AnswerQuestion";
+import Question from "./components/Question";
 import ViewPoll from "./components/ViewPoll";
+import Error404 from "./components/Error404";
 
 class App extends Component {
   state = {};
@@ -58,9 +59,9 @@ class App extends Component {
             />
 
             <PrivateRoute
-              path="/newQuestion"
+              path="/add"
               history={this.props.history}
-              component={NewQuestion}
+              component={Add}
               isAuthenticated={this.loggedIn()}
             />
 
@@ -72,20 +73,20 @@ class App extends Component {
             />
 
             <PrivateRoute
-              path="/answerQuestion/:id"
+              path="/question/:question_id"
               history={this.props.history}
-              component={AnswerQuestion}
+              component={Question}
               isAuthenticated={this.loggedIn()}
             />
 
             <PrivateRoute
-              path="/viewPoll/:id"
+              path="/viewPoll/:question_id"
               history={this.props.history}
               component={ViewPoll}
               isAuthenticated={this.loggedIn()}
             />
 
-            <Route path="*" component={Home} />
+            <Route path="*" component={Error404} />
           </Switch>
         </React.Fragment>
       </BrowserRouter>

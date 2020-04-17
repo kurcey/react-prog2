@@ -45,9 +45,12 @@ class Home extends Component {
       ];
 
       if (allVotes.find((voters) => voters === currentUser.id))
-        return { id: id, answered: true };
-      else return { id: id, answered: false };
+        return { id: id, answered: true, timestamp: questions[id].timestamp };
+      else
+        return { id: id, answered: false, timestamp: questions[id].timestamp };
     });
+
+    alreadyVotedQuestions.sort((a, b) => a.timestamp <= b.timestamp);
 
     alreadyVotedQuestions = alreadyVotedQuestions.filter(
       (items) => items.answered === answeredQuestions
@@ -71,7 +74,7 @@ class Home extends Component {
       return (
         <PollCard
           key={questionInfo.id}
-          id={questionInfo.id}
+          question_id={questionInfo.id}
           name={autorInfo.name}
           avatarURL={autorInfo.avatarURL}
           question={questionInfo.optionOne.text}

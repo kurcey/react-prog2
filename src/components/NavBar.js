@@ -12,13 +12,13 @@ class NavBar extends Component {
         enabled: true,
       },
       {
-        linkRef: "/newQuestion",
+        linkRef: "/add",
         display: "New Question",
         id: 1,
         enabled: true,
       },
       {
-        linkRef: "/leaderBoard",
+        linkRef: "/leaderboard",
         display: "Leader Board",
         id: 2,
         enabled: true,
@@ -96,9 +96,7 @@ class NavBar extends Component {
       </React.Fragment>
     );
   }
-  componentDidUpdate() {
-    //  this.loggedIn();
-  }
+  componentDidUpdate() {}
 }
 
 const mapStateToProps = ({ currentUser }) => {

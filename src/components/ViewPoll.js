@@ -9,7 +9,7 @@ class ViewPoll extends Component {
   state = {};
 
   generateResults = () => {
-    const { id: sentID } = this.props.match.params;
+    const { question_id: sentID } = this.props.match.params;
     const { questions: questionPool, users, currentUser } = this.props;
 
     // filter user ordered questions

@@ -6,20 +6,26 @@ class PollCard extends Component {
   jumpToLink = (answeredQuestions, questionID) => {
     let linkPath = "";
     if (answeredQuestions) linkPath = "/viewPoll/" + questionID;
-    else linkPath = "/answerQuestion/" + questionID;
+    else linkPath = "/question/" + questionID;
 
     this.props.history.push(linkPath);
   };
 
   render() {
-    const { id, name, avatarURL, question, answeredQuestions } = this.props;
+    const {
+      question_id,
+      name,
+      avatarURL,
+      question,
+      answeredQuestions,
+    } = this.props;
     let polButtonMsg = "";
     if (answeredQuestions) polButtonMsg = "View Poll";
     else polButtonMsg = "Answer Question";
     return (
       <React.Fragment>
         <br />
-        <div key={id} className="card-deck mb-12 text-center">
+        <div key={question_id} className="card-deck mb-12 text-center">
           <div className="card mb-12 shadow-sm">
             <div className="card-header">
               <h4 className="my-0 font-weight-normal">{name} asks:</h4>
@@ -45,7 +51,7 @@ class PollCard extends Component {
                       type="button"
                       className="btn btn-lg btn-block btn-outline-primary"
                       onClick={(e) => {
-                        this.jumpToLink(answeredQuestions, id);
+                        this.jumpToLink(answeredQuestions, question_id);
                       }}
                     >
                       {polButtonMsg}

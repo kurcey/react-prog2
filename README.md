@@ -1,68 +1,62 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Would You Rather Project
 
-## Available Scripts
+The "Would You Rather?" Project, you'll build a web app that lets a user play the “Would You Rather?” game. The game goes like this: A user is asked a question in the form: “Would you rather [option A] or [option B] ?”. Answering "neither" or "both" is against the rules.
 
-In the project directory, you can run:
+In your app, users will be able to answer questions, see which questions they haven’t answered, see how other people have voted, post questions, and see the ranking of users on the leaderboard.
 
-### `npm start`
+The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the `_DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How to Run
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The application requires only `npm install` and `npm start` to install and launch.
 
-### `npm test`
+## Libarys used
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+There are two types of objects stored in our database:
 
-### `npm run build`
+- npm install react react-router-dom --save
+- npm install react-redux --save
+- npm install redux --save
+- npm install redux-thunk --save
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Components
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Project COmponents include:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Name              | Description                                                             |
+| ----------------- | ----------------------------------------------------------------------- |
+| `Error404.js`     | Error page if users access a path that is non existant                  |
+| `Home.js`         | Main Page for the user that displays the cards                          |
+| `LedarBoard.js`   | Dispays the users ranking via total items created / answered            |
+| `Login.js`        | Page used to login to application                                       |
+| `Logout.js`       | Page that houses the logout function                                    |
+| `NavBar.js`       | Component used to keep the nav Bar and user login attibutes             |
+| `PollCard.js`     | Keeps repetive mapped card for the poll and questions                   |
+| `PollGroup.js`    | Keeps the group button to switch between answered and un answered cards |
+| `PrivateRoute.js` | Used to test if user is logged in and route to appropiate page          |
+| `Question.js`     | Component that alows user to enter new question                         |
+| `View Poll.js`    | Component used to show results of user selected polls                   |
 
-### `npm run eject`
+### Redux datastore Files
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Project COmponents include:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Name             | Description                                                       |
+| ---------------- | ----------------------------------------------------------------- |
+| `currentUser.js` | The Reducer to keep the current logged in user for all components |
+| `Index.js`       | Combines all reducers                                             |
+| `questions.js`   | The Reducer used to keep all the question data                    |
+| `users.js`       | The Reducer used to keep all the users data                       |
+| `_DATA.js`       | Inital data and mock database functions                           |
+| `actions.js`     | Keeps all the actions functions                                   |
+| `actionTypes.js` | Keeps the constants for all reducer actions                       |
+| `store.js`       | Loads inital data and initilizae redux store and thunk            |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Database Calls
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The Application talks to the mock database via 4 methods:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- `_getUsers()`
+- `_getQuestions()`
+- `_saveQuestion(question)`
+- `_saveQuestionAnswer(object)`

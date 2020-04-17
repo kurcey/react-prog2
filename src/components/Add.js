@@ -7,7 +7,7 @@ import { saveQuestion } from "../redux/actions";
 
 import NavBar from "./NavBar";
 
-class NewQuestion extends Component {
+class Add extends Component {
   state = { optionOneText: "", optionTwoText: "" };
 
   render() {
@@ -110,7 +110,4 @@ const mapDispatchToProps = {
   saveQuestion,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(NewQuestion));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Add));
