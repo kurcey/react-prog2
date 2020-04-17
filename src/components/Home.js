@@ -110,7 +110,9 @@ class Home extends Component {
     );
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    //    this.genertateQuestionGrouping();
+  }
 
   componentDidMount() {
     this.genertateQuestionGrouping();

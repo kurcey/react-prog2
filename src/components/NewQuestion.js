@@ -3,11 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
-import { _saveQuestion } from "../redux/_DATA";
-
-import { addAllQuestion } from "../redux/actions";
-
-import store from "../redux/store";
+import { saveQuestion } from "../redux/actions";
 
 import NavBar from "./NavBar";
 
@@ -79,19 +75,6 @@ class NewQuestion extends Component {
     );
   }
 
-  saveQuestion = (questionObject) => {
-    return function (dispatch) {
-      return _saveQuestion(questionObject).then(
-        (ques) => {
-          console.log(ques);
-          //pickup from here
-          store.dispatch(addAllQuestion(ques));
-        },
-        (error) => console.log(error)
-      );
-    };
-  };
-
   handleChange = (event) => {
     const target = event.target;
     const value = target.value;
@@ -112,12 +95,8 @@ class NewQuestion extends Component {
       optionTwoText: optionTwoText,
     };
 
-    console.log(questionPayload);
-    store.dispatch(this.saveQuestion(questionPayload));
-
-    if (currentUser) {
-      // this.props.history.push("/");
-    }
+    this.props.saveQuestion(questionPayload);
+    this.props.history.push("/");
   };
 }
 
@@ -128,8 +107,7 @@ const mapStateToProps = ({ currentUser }) => {
 };
 
 const mapDispatchToProps = {
-  addAllQuestion,
-  // saveQuestion,
+  saveQuestion,
 };
 
 export default connect(

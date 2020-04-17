@@ -97,7 +97,7 @@ class NavBar extends Component {
     );
   }
   componentDidUpdate() {
-    this.loggedIn();
+    //  this.loggedIn();
   }
 }
 

@@ -1,6 +1,6 @@
 export const ADD_QUESTION = "ADD_QUESTION";
-export const ADD_VOTE = "ADD_VOTE";
 export const ADD_ALL_QUESTION = "ADD_ALL_QUESTION";
 export const ADD_ALL_USERS = "ADD_ALL_USERS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
+export const ADD_ANSWER_TO_USER = "ADD_ANSWER_TO_USER";

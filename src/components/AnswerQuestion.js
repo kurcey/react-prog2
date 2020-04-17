@@ -3,10 +3,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
+import { saveQuestionAnswer } from "../redux/actions";
+
 import NavBar from "./NavBar";
 
 class AnswerQuestion extends Component {
-  state = {};
+  state = { optionChecked: "optionOne" };
 
   generateResults = () => {
     const { id: sentID } = this.props.match.params;
@@ -59,30 +61,22 @@ class AnswerQuestion extends Component {
                       <div className="custom-control custom-radio">
                         <input
                           type="radio"
-                          id="customRadio1"
-                          name="customRadio"
-                          className="custom-control-input"
-                          onChange={(e) => {}}
+                          value="optionOne"
+                          checked={this.state.optionChecked === "optionOne"}
+                          onChange={this.handleChange}
                         />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio1"
-                        >
+                        <label htmlFor="optionOne">
                           {currentQuestion.optionOne.text}
                         </label>
                       </div>
                       <div className="custom-control custom-radio">
                         <input
                           type="radio"
-                          id="customRadio2"
-                          name="customRadio"
-                          className="custom-control-input"
-                          onChange={(e) => {}}
+                          value="optionTwo"
+                          checked={this.state.optionChecked === "optionTwo"}
+                          onChange={this.handleChange}
                         />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio2"
-                        >
+                        <label htmlFor="optionTwo">
                           {currentQuestion.optionTwo.text}
                         </label>
                       </div>
@@ -90,7 +84,9 @@ class AnswerQuestion extends Component {
                       <button
                         type="button"
                         className="btn btn-lg btn-block btn-outline-primary"
-                        onClick={(e) => {}}
+                        onClick={(e) => {
+                          this.handleInputQuestion(e);
+                        }}
                       >
                         Submit
                       </button>
@@ -115,6 +111,28 @@ class AnswerQuestion extends Component {
       </React.Fragment>
     );
   }
+
+  handleChange = (event) => {
+    this.setState({
+      optionChecked: event.target.value,
+    });
+  };
+
+  handleInputQuestion = () => {
+    const { currentUser } = this.props;
+    const authedUser = currentUser.id;
+    const { optionChecked } = this.state;
+    const { id: qid } = this.props.match.params;
+
+    const answerPayload = {
+      authedUser: authedUser,
+      qid: qid,
+      answer: optionChecked,
+    };
+
+    this.props.saveQuestionAnswer(answerPayload);
+    this.props.history.push("/");
+  };
 }
 
 const mapStateToProps = ({ users, currentUser, questions }) => {
@@ -126,7 +144,7 @@ const mapStateToProps = ({ users, currentUser, questions }) => {
 };
 
 const mapDispatchToProps = {
-  // setCurrentUser,
+  saveQuestionAnswer,
 };
 
 export default connect(
