@@ -18,6 +18,7 @@ There are two types of objects stored in our database:
 - npm install react-redux --save
 - npm install redux --save
 - npm install redux-thunk --save
+- npm install redux-persist --save
 
 ### Components
 

@@ -24,7 +24,7 @@ class Home extends Component {
     let unAnswerbuttonFormat = "",
       answerbuttonFormat = "";
 
-    if (answeredQuestions) {
+    if (!answeredQuestions) {
       unAnswerbuttonFormat = "btn btn-secondary";
       answerbuttonFormat = "btn btn-light";
     } else {

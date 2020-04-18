@@ -7,7 +7,13 @@ import {
   ADD_ANSWER_TO_USER,
 } from "./actionTypes";
 
-import { _saveQuestion, _saveQuestionAnswer } from "./_DATA";
+import {
+  _getQuestions,
+  _getUsers,
+  _saveQuestion,
+  _saveQuestionAnswer,
+} from "./_DATA";
+import store from "./store";
 
 export const addQuestion = ({
   id,
@@ -87,6 +93,28 @@ export const saveQuestionAnswer = (questionObject) => {
     return _saveQuestionAnswer(questionObject).then(
       (ans) => {
         dispatch(saveAnswer(questionObject));
+      },
+      (error) => console.log(error)
+    );
+  };
+};
+
+export const loadInitalQuestions = () => {
+  return function (dispatch) {
+    return _getQuestions().then(
+      (ques) => {
+        store.dispatch(addAllQuestion(ques));
+      },
+      (error) => console.log(error)
+    );
+  };
+};
+
+export const loadInitalUsers = () => {
+  return function (dispatch) {
+    return _getUsers().then(
+      (user) => {
+        store.dispatch(addAllUsers(user));
       },
       (error) => console.log(error)
     );

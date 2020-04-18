@@ -18,7 +18,11 @@ class ViewPoll extends Component {
         return questionPool[questionKey];
       })
       .filter((resultAnswer) => resultAnswer.id === sentID)[0];
-
+    console.log(currentQuestion);
+    if (typeof currentQuestion === "undefined") {
+      this.props.history.push("/error/This Poll question does not exist");
+      return;
+    }
     // get user info for current question
     let questionAuthor = Object.keys(users)
       .map(function (userKey, index) {
@@ -75,6 +79,9 @@ class ViewPoll extends Component {
                 <p className="card-text">
                   {" "}
                   {numberVotes1} out of {totalVotes} votes
+                  <br />
+                  {Math.round((numberVotes1 / totalVotes) * 10000) / 100} %
+                  Votes
                 </p>
               </div>
             </div>
@@ -86,6 +93,9 @@ class ViewPoll extends Component {
                 </h5>
                 <p className="card-text">
                   {numberVotes2} out of {totalVotes} votes
+                  <br />
+                  {Math.round((numberVotes2 / totalVotes) * 10000) / 100} %
+                  Votes
                 </p>
               </div>
             </div>

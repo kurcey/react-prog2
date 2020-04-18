@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import { loadInitalQuestions, loadInitalUsers } from "./redux/actions";
+
 import "./App.css";
 
 import { PrivateRoute } from "./components/PrivateRoute";
@@ -31,6 +33,7 @@ class App extends Component {
         <React.Fragment>
           <Switch>
             <Route
+              exact
               path="/login"
               history={this.props.history}
               render={() => <Login />}
@@ -45,6 +48,7 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
               path="/logout"
               history={this.props.history}
               component={Logout}
@@ -52,6 +56,7 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
               path="/leaderBoard"
               history={this.props.history}
               component={LeaderBoard}
@@ -59,6 +64,7 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
               path="/add"
               history={this.props.history}
               component={Add}
@@ -66,6 +72,7 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
               path="/aboutUser"
               history={this.props.history}
               component={AboutUser}
@@ -73,6 +80,7 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
               path="/question/:question_id"
               history={this.props.history}
               component={Question}
@@ -80,11 +88,14 @@ class App extends Component {
             />
 
             <PrivateRoute
+              exact
               path="/viewPoll/:question_id"
               history={this.props.history}
               component={ViewPoll}
               isAuthenticated={this.loggedIn()}
             />
+
+            <Route exact path="/error/:msg" component={Error404} />
 
             <Route path="*" component={Error404} />
           </Switch>
@@ -93,17 +104,44 @@ class App extends Component {
     );
   }
 
+  componentDidMount() {
+    const {
+      questions,
+      users,
+      loadInitalQuestions,
+      loadInitalUsers,
+    } = this.props;
+
+    if (Object.keys(users).length === 0 && users.constructor === Object) {
+      loadInitalUsers();
+      console.log(
+        "loading users from mock db becasue not persisted in local storage"
+      );
+    }
+
+    if (
+      Object.keys(questions).length === 0 &&
+      questions.constructor === Object
+    ) {
+      loadInitalQuestions();
+      console.log(
+        "loading questions from mock db becasue not persisted in local storage"
+      );
+    }
+  }
+
   componentDidUpdate() {
     this.loggedIn();
   }
 }
 
-const mapStateToProps = ({ currentUser }) => {
+const mapStateToProps = ({ questions, currentUser, users }) => {
   return {
+    questions: questions,
     currentUser: currentUser,
+    users: users,
   };
 };
-
-const mapDispatchToProps = {};
+const mapDispatchToProps = { loadInitalQuestions, loadInitalUsers };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
