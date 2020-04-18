@@ -18,7 +18,7 @@ class ViewPoll extends Component {
         return questionPool[questionKey];
       })
       .filter((resultAnswer) => resultAnswer.id === sentID)[0];
-    console.log(currentQuestion);
+
     if (typeof currentQuestion === "undefined") {
       this.props.history.push("/error/This Poll question does not exist");
       return;
